@@ -1,0 +1,550 @@
+{
+    "clinical_num_stran": {
+        "Pathogenic": 5,
+        "Oncogenic": 5,
+        "Likely pathogenic": 4,
+        "Likely oncogenic": 4,
+        "Uncertain": 3,
+        "Likely benign": 2,
+        "Benign": 1
+    },
+    "function_num_stran": {
+        "Pathogenic": 5,
+        "Oncogenic": 5,
+        "Likely pathogenic": 4,
+        "Likely oncogenic": 4,
+        "Uncertain": 3,
+        "Likely benign": 2,
+        "Benign": 1
+    },
+    "evidence_type_stran": {
+      "Predisposing": "倾向性",
+      "Diagnostic": "辅助诊断",
+      "Predictive": "预测",
+      "Functional": "功能",
+      "Prognostic": "预后"
+    },
+    "sense_stran": {
+      "Risk Decline": "风险降低",
+      "Predicted-Sensitive": "敏感",
+      "Risk Elevate": "风险增加",
+      "Unknown": "未知",
+      "Adverse Response": "不良反应",
+      "Sensitive": "敏感",
+      "Poor": "较差",
+      "GOF": "功能增强",
+      "Better": "较好",
+      "LOF": "功能减弱",
+      "Negative": "阴性",
+      "Resistant": "耐药",
+      "Predicted-Resistant": "耐药",
+      "Positive": "阳性",
+      "Moderate": "中等"
+    },
+    "type_stran": {
+      "nonFrameShift_Insertion": "非移码突变",
+      "Nonsense_Mutation": "无义突变",
+      "FrameShift_Deletion": "移码突变",
+      "Extension": "延伸突变",
+      "nonFrameShift_Substitution": "非移码突变",
+      "Synonymous_Substitution": "同义突变",
+      "nonFrameShift_Deletion": "非移码突变",
+      "3'UTR": "--",
+      "FlankingRegion3": "--",
+      "CorruptedStart": "起始密码子突变",
+      "nonFrameShift_Duplication": "非移码突变",
+      "FrameShift_Insertion": "移码突变",
+      "Splicing": "经典剪接位点突变",
+      "FlankingRegion5": "--",
+      "Intronic": "--",
+      "5'UTR": "--",
+      "FrameShift_Duplication": "移码突变",
+      "FrameShift_Substitution": "移码突变",
+      "nonSynonymous_Substitution": "错义突变"
+    },
+    "cp40_gene": {
+      "STK11": "点突变/插入/缺失",
+      "IDH2": "点突变/插入/缺失",
+      "NRG1": "融合",
+      "NFE2L2": "点突变/插入/缺失",
+      "KEAP1": "点突变/插入/缺失",
+      "ALK": "融合/点突变/插入/缺失",
+      "MET": "点突变/插入/缺失/拷贝数变异/MET exon14 skipping",
+      "PTEN": "点突变/插入/缺失",
+      "HRAS": "点突变/插入/缺失",
+      "DPYD": "多态性位点",
+      "UGT1A1": "多态性位点",
+      "NTRK1": "融合/点突变/插入/缺失",
+      "CTNNB1": "点突变/插入/缺失",
+      "TP53": "点突变/插入/缺失",
+      "FGFR4": "融合/点突变/插入/缺失",
+      "KRAS": "点突变/插入/缺失",
+      "EGFR": "点突变/插入/缺失",
+      "MAP2K1": "点突变/插入/缺失",
+      "MYC": "拷贝数变异",
+      "POLE": "点突变/插入/缺失",
+      "ESR1": "点突变/插入/缺失",
+      "IDH1": "点突变/插入/缺失",
+      "FGFR3": "融合/点突变/插入/缺失",
+      "CDK4": "拷贝数变异",
+      "NTRK2": "融合/点突变/插入/缺失",
+      "BRAF": "点突变/插入/缺失",
+      "FGFR1": "融合/点突变/插入/缺失",
+      "ROS1": "融合/点突变/插入/缺失",
+      "RET": "融合/点突变/插入/缺失",
+      "NKX2-1": "拷贝数变异",
+      "PDGFRA": "点突变/插入/缺失",
+      "RB1": "点突变/插入/缺失",
+      "FGFR2": "融合/点突变/插入/缺失",
+      "PIK3CA": "点突变/插入/缺失",
+      "NRAS": "点突变/插入/缺失",
+      "AKT1": "点突变/插入/缺失",
+      "KIT": "点突变/插入/缺失",
+      "DDR2": "点突变/插入/缺失",
+      "NTRK3": "融合/点突变/插入/缺失",
+      "ERBB2": "点突变/插入/缺失"
+    },
+    "cp40_split_gene": {
+      "gene10": {
+          "ALK": "融合/点突变/插入/缺失",
+          "BRAF": "点突变/插入/缺失",
+          "EGFR": "点突变/插入/缺失",
+          "ERBB2": "点突变/插入/缺失/拷贝数变异",
+          "KRAS": "点突变/插入/缺失",
+          "MET": "点突变/插入/缺失/拷贝数变异",
+          "NRAS": "点突变/插入/缺失",
+          "PIK3CA": "点突变/插入/缺失",
+          "RET": "融合/点突变/插入/缺失",
+          "ROS1": "融合/点突变/插入/缺失"
+      },           
+      "gene30": {
+          "AKT1": "点突变/插入/缺失",
+          "CDK4": "拷贝数变异",
+          "CTNNB1": "点突变/插入/缺失",
+          "DDR2": "点突变/插入/缺失",
+          "ESR1": "点突变/插入/缺失",
+          "FGFR1": "融合/点突变/插入/缺失",
+          "FGFR2": "融合/点突变/插入/缺失", 
+          "FGFR3": "融合/点突变/插入/缺失",
+          "FGFR4": "融合/点突变/插入/缺失", 
+          "HRAS": "点突变/插入/缺失",
+          "IDH1": "点突变/插入/缺失",
+          "IDH2": "点突变/插入/缺失",
+          "KEAP1": "点突变/插入/缺失",
+          "KIT": "点突变/插入/缺失",
+          "MAP2K1": "点突变/插入/缺失",
+          "MYC": "拷贝数变异",
+          "NFE2L2": "点突变/插入/缺失",
+          "NKX2-1": "拷贝数变异",
+          "NRG1": "融合",
+          "NTRK1": "融合/点突变/插入/缺失",
+          "NTRK2": "融合/点突变/插入/缺失",
+          "NTRK3": "融合/点突变/插入/缺失",
+          "PDGFRA": "点突变/插入/缺失",
+          "POLE": "点突变/插入/缺失",
+          "PTEN": "点突变/插入/缺失",
+          "RB1": "点突变/插入/缺失",
+          "STK11": "点突变/插入/缺失",
+          "TP53": "点突变/插入/缺失",
+          "DPYD": "多态性位点",
+          "UGT1A1": "多态性位点"
+      }
+    },
+    "rpt_guideline_recom_116": {
+      "RECORDS": [
+        {
+          "gene_symbol": "ALK",
+          "disease": "肺癌"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "disease": "肺癌、黑色素瘤、甲状腺癌、结直肠癌、Erdheim-Chester病"
+        },
+        {
+          "gene_symbol": "BRCA1",
+          "disease": "卵巢癌、前列腺癌、乳腺癌、胰腺癌"
+        },
+        {
+          "gene_symbol": "BRCA2",
+          "disease": "卵巢癌、前列腺癌、乳腺癌、胰腺癌"
+        },
+        {
+          "gene_symbol": "EGFR",
+          "disease": "肺癌"
+        },
+        {
+          "gene_symbol": "ERBB2",
+          "disease": "肺癌、结直肠癌、乳腺癌、胃癌"
+        },
+        {
+          "gene_symbol": "FGFR2",
+          "disease": "胆管癌、尿路上皮癌"
+        },
+        {
+          "gene_symbol": "FGFR3",
+          "disease": "尿路上皮癌"
+        },
+        {
+          "gene_symbol": "FLT3",
+          "disease": "白血病"
+        },
+        {
+          "gene_symbol": "IDH1",
+          "disease": "白血病"
+        },
+        {
+          "gene_symbol": "IDH2",
+          "disease": "白血病"
+        },
+        {
+          "gene_symbol": "KIT",
+          "disease": "胃肠道间质瘤"
+        },
+        {
+          "gene_symbol": "KRAS",
+          "disease": "肺癌、结直肠癌"
+        },
+        {
+          "gene_symbol": "MET",
+          "disease": "肺癌"
+        },
+        {
+          "gene_symbol": "NRAS",
+          "disease": "结直肠癌"
+        },
+        {
+          "gene_symbol": "NTRK1",
+          "disease": "实体瘤"
+        },
+        {
+          "gene_symbol": "NTRK2",
+          "disease": "实体瘤"
+        },
+        {
+          "gene_symbol": "NTRK3",
+          "disease": "实体瘤"
+        },
+        {
+          "gene_symbol": "PDGFRA",
+          "disease": "胃肠道间质瘤、白血病、骨髓增生异常/骨髓增生性疾病"
+        },
+        {
+          "gene_symbol": "PIK3CA",
+          "disease": "乳腺癌"
+        },
+        {
+          "gene_symbol": "RET",
+          "disease": "肺癌、甲状腺癌"
+        },
+        {
+          "gene_symbol": "ROS1",
+          "disease": "肺癌"
+        }
+      ]
+    },
+    "rpt_guideline_recom": {
+      "RECORDS": [
+        {
+          "gene_symbol": "ALK",
+          "transcript_refseq": "NM_004304.4",
+          "disease": "肺癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "transcript_refseq": "NM_004333.4",
+          "disease": "肺癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "transcript_refseq": "NM_004333.4",
+          "disease": "黑色素瘤",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "transcript_refseq": "NM_004333.4",
+          "disease": "甲状腺癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "transcript_refseq": "NM_004333.4",
+          "disease": "结直肠癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "BRAF",
+          "transcript_refseq": "NM_004333.4",
+          "disease": "Erdheim-Chester病",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "EGFR",
+          "transcript_refseq": "NM_005228.3",
+          "disease": "肺癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "ERBB2",
+          "transcript_refseq": "NM_004448.3",
+          "disease": "肺癌",
+          "var_type": "SNV, InDel, CNA"
+        },
+        {
+          "gene_symbol": "ERBB2",
+          "transcript_refseq": "NM_004448.3",
+          "disease": "结直肠癌",
+          "var_type": "SNV, InDel, CNA"
+        },
+        {
+          "gene_symbol": "ERBB2",
+          "transcript_refseq": "NM_004448.3",
+          "disease": "乳腺癌",
+          "var_type": "SNV, InDel, CNA"
+        },
+        {
+          "gene_symbol": "ERBB2",
+          "transcript_refseq": "NM_004448.3",
+          "disease": "胃癌",
+          "var_type": "SNV, InDel, CNA"
+        },
+        {
+          "gene_symbol": "FGFR2",
+          "transcript_refseq": "NM_000141.4",
+          "disease": "胆管癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "FGFR2",
+          "transcript_refseq": "NM_000141.4",
+          "disease": "尿路上皮癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "FGFR3",
+          "transcript_refseq": "NM_000142.4",
+          "disease": "尿路上皮癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "IDH1",
+          "transcript_refseq": "NM_005896.3",
+          "disease": "白血病",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "IDH2",
+          "transcript_refseq": "NM_002168.3",
+          "disease": "白血病",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "KIT",
+          "transcript_refseq": "NM_000222.2",
+          "disease": "胃肠道间质瘤",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "KRAS",
+          "transcript_refseq": "NM_033360.3",
+          "disease": "肺癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "KRAS",
+          "transcript_refseq": "NM_033360.3",
+          "disease": "结直肠癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "MET",
+          "transcript_refseq": "NM_000245.2",
+          "disease": "肺癌",
+          "var_type": "SNV, InDel, Exon14 Skipping, CNA"
+        },
+        {
+          "gene_symbol": "NRAS",
+          "transcript_refseq": "NM_002524.4",
+          "disease": "结直肠癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "NTRK1",
+          "transcript_refseq": "NM_001007792.1",
+          "disease": "实体瘤",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "NTRK2",
+          "transcript_refseq": "NM_006180.4",
+          "disease": "实体瘤",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "NTRK3",
+          "transcript_refseq": "NM_002530.3",
+          "disease": "实体瘤",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "PDGFRA",
+          "transcript_refseq": "NM_006206.4",
+          "disease": "白血病",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "PDGFRA",
+          "transcript_refseq": "NM_006206.4",
+          "disease": "骨髓增生异常/骨髓增生性疾病",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "PDGFRA",
+          "transcript_refseq": "NM_006206.4",
+          "disease": "胃肠道间质瘤",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "PIK3CA",
+          "transcript_refseq": "NM_006218.2",
+          "disease": "乳腺癌",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "RET",
+          "transcript_refseq": "NM_020975.4",
+          "disease": "肺癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "RET",
+          "transcript_refseq": "NM_020975.4",
+          "disease": "甲状腺癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "ROS1",
+          "transcript_refseq": "NM_002944.2",
+          "disease": "肺癌",
+          "var_type": "Fusion, SNV, InDel"
+        },
+        {
+          "gene_symbol": "KIT",
+          "transcript_refseq": "NM_000222.2",
+          "disease": "黑色素瘤",
+          "var_type": "SNV, InDel"
+        },
+        {
+          "gene_symbol": "NRAS",
+          "transcript_refseq": "NM_002524.4",
+          "disease": "黑色素瘤",
+          "var_type": "SNV, InDel"
+        }
+      ]
+    },
+    "gene_116_other": {
+      "AKT1": "点突变/插入/缺失",
+      "AKT2": "点突变/插入/缺失/拷贝数变异",
+      "AKT3": "点突变/插入/缺失/拷贝数变异",
+      "APC": "点突变/插入/缺失",
+      "AR": "点突变/插入/缺失",
+      "ARAF": "点突变/插入/缺失",
+      "ARID1A": "点突变/插入/缺失",
+      "ATM": "点突变/插入/缺失",
+      "ATR": "点突变/插入/缺失",
+      "AURKA": "点突变/插入/缺失/拷贝数变异",
+      "BAP1": "点突变/插入/缺失",
+      "BCL2L11": "点突变/插入/缺失",
+      "BRCA1": "点突变/插入/缺失",
+      "BRCA2": "点突变/插入/缺失",
+      "CCND1": "点突变/插入/缺失/拷贝数变异",
+      "CCNE1": "点突变/插入/缺失/拷贝数变异",
+      "CD274": "点突变/插入/缺失/拷贝数变异",
+      "CDK12": "点突变/插入/缺失",
+      "CDK4": "点突变/插入/缺失/拷贝数变异",
+      "CDK6": "点突变/插入/缺失/拷贝数变异",
+      "CDKN2A": "点突变/插入/缺失",
+      "CDKN2B": "点突变/插入/缺失",
+      "CREBBP": "点突变/插入/缺失",
+      "CTNNB1": "点突变/插入/缺失",
+      "DDR2": "点突变/插入/缺失",
+      "EIF1AX": "点突变/插入/缺失",
+      "EPAS1": "点突变/插入/缺失/拷贝数变异",
+      "ERBB3": "点突变/插入/缺失",
+      "ERBB4": "点突变/插入/缺失",
+      "ESR1": "点突变/插入/缺失",
+      "ETS2": "点突变/插入/缺失",
+      "FANCA": "点突变/插入/缺失",
+      "FBXW7": "点突变/插入/缺失",
+      "FGF19": "点突变/插入/缺失/拷贝数变异",
+      "FGF3": "点突变/插入/缺失/拷贝数变异",
+      "FGFR1": "融合/点突变/插入/缺失/拷贝数变异",
+      "FGFR2": "融合/点突变/插入/缺失/拷贝数变异",
+      "FGFR3": "融合/点突变/插入/缺失/拷贝数变异",
+      "FGFR4": "点突变/插入/缺失",
+      "FLCN": "点突变/插入/缺失",
+      "FLT3": "点突变/插入/缺失",
+      "GNAS": "点突变/插入/缺失",
+      "HIF1A": "点突变/插入/缺失/拷贝数变异",
+      "HRAS": "点突变/插入/缺失",
+      "IDH1": "点突变/插入/缺失",
+      "IDH2": "点突变/插入/缺失",
+      "IGF1R": "点突变/插入/缺失/拷贝数变异",
+      "JAK1": "点突变/插入/缺失",
+      "JAK2": "点突变/插入/缺失",
+      "JAK3": "点突变/插入/缺失",
+      "KDM5C": "点突变/插入/缺失",
+      "KDR": "点突变/插入/缺失",
+      "KIT": "点突变/插入/缺失",
+      "MAP2K1": "点突变/插入/缺失",
+      "MAPK1": "点突变/插入/缺失/拷贝数变异",
+      "MRE11": "点突变/插入/缺失",
+      "MTHFR": "多态性位点",
+      "MTOR": "点突变/插入/缺失",
+      "MYC": "点突变/插入/缺失/拷贝数变异",
+      "NF1": "点突变/插入/缺失",
+      "NF2": "点突变/插入/缺失",
+      "NOTCH1": "点突变/插入/缺失",
+      "NRG1": "融合",
+      "NTRK1": "融合/点突变/插入/缺失",
+      "NTRK2": "融合/点突变/插入/缺失",
+      "NTRK3": "融合/点突变/插入/缺失/拷贝数变异",
+      "PALB2": "点突变/插入/缺失",
+      "PAX8": "融合/点突变/插入/缺失",
+      "PDCD1": "点突变/插入/缺失",
+      "PDGFRA": "点突变/插入/缺失/拷贝数变异",
+      "PGR": "点突变/插入/缺失/拷贝数变异",
+      "PIK3R1": "点突变/插入/缺失",
+      "POLD1": "点突变/插入/缺失",
+      "POLE": "点突变/插入/缺失",
+      "PSMD4": "点突变/插入/缺失/拷贝数变异",
+      "PTCH1": "点突变/插入/缺失",
+      "PTEN": "点突变/插入/缺失",
+      "RAF1": "点突变/插入/缺失",
+      "RASA1": "点突变/插入/缺失",
+      "RASAL1": "点突变/插入/缺失",
+      "RB1": "点突变/插入/缺失",
+      "RICTOR": "点突变/插入/缺失/拷贝数变异",
+      "RIT1": "点突变/插入/缺失",
+      "RSF1": "点突变/插入/缺失/拷贝数变异",
+      "SF3B1": "点突变/插入/缺失",
+      "SMAD4": "点突变/插入/缺失",
+      "SMARCA4": "点突变/插入/缺失",
+      "SMO": "点突变/插入/缺失/拷贝数变异",
+      "STK11": "点突变/插入/缺失",
+      "TERT": "点突变/插入/缺失",
+      "TOP2A": "点突变/插入/缺失/拷贝数变异",
+      "TP53": "点突变/插入/缺失",
+      "TSC1": "点突变/插入/缺失",
+      "TSC2": "点突变/插入/缺失",
+      "TSHR": "点突变/插入/缺失",
+      "VHL": "点突变/插入/缺失",
+      "EPCAM": "点突变/插入/缺失",
+      "MLH1": "点突变/插入/缺失",
+      "MSH2": "点突变/插入/缺失",
+      "MSH6": "点突变/插入/缺失",
+      "PMS2": "点突变/插入/缺失"
+  }
+}
