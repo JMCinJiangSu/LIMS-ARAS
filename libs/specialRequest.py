@@ -1530,3 +1530,10 @@ def getSum_for_tXW7601(var_list, hd, tumor_list):
 	hrr_genelist = ['ATM', 'BARD1', 'BRIP1', 'CDK12', 'CHEK1', 'CHEK2', 'FANCA', 'FANCL', 'HDAC2', 'PALB2', 'PPP2R2A', 'RAD51B', 'RAD51C', 'RAD51D', 'RAD54L']
 	result = XW6701_summary(var, main_gene, hrr_genelist)
 	return result
+
+def getSum_for_XW5303(var_list, hd):
+	var = var_list['var_somatic']['level_I'] + var_list['var_somatic']['level_II'] + var_list['var_somatic']['level_onco_nodrug'] + hd
+	main_gene = ['BRCA1', 'BRCA2']
+	hrr_genelist = ['EGFR']
+	result = XW6701_summary(var, main_gene, hrr_genelist)
+	return result

@@ -31,7 +31,7 @@ from libs.specialRequest import shrj_cp40_var
 from libs.specialRequest import sort_for_xw0417
 from libs.specialRequest import getSum_for_tXW6002
 from libs.specialRequest import getSum_for_gXW6002
-from libs.specialRequest import getSum_for_XW5902
+from libs.specialRequest import getSum_for_XW5902, getSum_for_XW5303
 from libs.specialRequest import var_ad3101_summary, getSum_for_tXW6701, getSum_for_gXW6701, getSum_for_XW6003, getSum_for_XW6701, PAN116_LYZL_summary, getSum_for_gXW7601, getSum_for_tXW7601
 
 def getVar(jsonDict, config, report_name):
@@ -264,6 +264,7 @@ def getVar(jsonDict, config, report_name):
 	data['special']['xw0294'] = getSum_for_tXW6002(data["var_somatic"]["level_I"]+data["var_somatic"]["level_II"]+data["var_somatic"]["level_onco_nodrug"])
 	data['special']['gXW7601'] = getSum_for_gXW7601(data)
 	data['special']['tXW7601'] = getSum_for_tXW7601(data, jsonDict['hd'], jsonDict['sample_info']['tumor_list'])
+	data['special']['XW5303'] = getSum_for_XW5303(data, jsonDict['hd'])
 	# ¡Ÿ“ ÷◊¡ˆ
 	data["special"]["LYZL_116"] = PAN116_LYZL_summary(data["var_somatic"]["level_I"], data["var_somatic"]["level_II"], data["var_somatic"]["level_onco_nodrug"], data["var_germline"]["level_5"], data["var_germline"]["level_4"])
 
