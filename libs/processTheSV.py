@@ -113,7 +113,7 @@ def process_sv(jsonDict, config):
 	# Myeloid类似CP 2023年12月27日 jmc
 	# xw1402 OncoPro(组织)流程同handle jmc 2024年8月16日
 	# XW4303 BG
-	if not re.search("Classic|CRC12|Myeloid|OncoPro（组织）|BG", jsonDict["sample_info"]["prod_names"]):
+	if not re.search("Classic|CRC12|Myeloid|OncoPro（组织）|BG|CP200（组织）", jsonDict["sample_info"]["prod_names"]):
 #		print (sv_combination_match)
 		sv_combination_match = sorted(sv_combination_match, key=lambda i:float(str(i["freq"]).replace("%","")), reverse=True)
 	else:

@@ -1259,11 +1259,30 @@ def var_sum_s(var_list):
 			else:
 				result.append(var["gene_symbol"]+" "+var["hgvs_c"])
 		elif var["bio_category"] == "Cnv":
-			result.append(var["gene_symbol"]+" 扩增")
+			# 2026.01.12-若cnv_type为Loss/loss，返回缺失
+			if "cnv_type" in var.keys() and var["cnv_type"] and var["cnv_type"] in ["Loss", "loss"]:
+				result.append(var["gene_symbol"]+" 缺失")
+			else:
+				result.append(var["gene_symbol"]+" 扩增")
 		elif var["bio_category"] in ["Sv", "PSeqRnaSv"]:
-			# 融合可能会有重复（rna exon相同，断点不同的情况）
-			if var["five_prime_gene"]+"-"+var["three_prime_gene"]+" 融合" not in result:
-				result.append(var["five_prime_gene"]+"-"+var["three_prime_gene"]+" 融合")
+			if var["five_prime_gene"] == "MET" and var["three_prime_gene"] == "MET":
+				result.append("MET exon14 跳跃")
+			else:
+				# 融合可能会有重复（rna exon相同，断点不同的情况）
+				if var["five_prime_gene"]+"-"+var["three_prime_gene"]+" 融合" not in result:
+					result.append(var["five_prime_gene"]+"-"+var["three_prime_gene"]+" 融合")
+		# 2025.07.15-新增PHd
+		elif var["bio_category"] == "PHd":
+			if var["type"] == "HomoDel":
+				if var["gene_symbol"]+" 纯合缺失" not in result:
+					result.append(var["gene_symbol"]+" 纯合缺失")
+			elif var["type"] == "HeteDel":
+				if var["gene_symbol"]+" 杂合缺失" not in result:
+					result.append(var["gene_symbol"]+" 杂合缺失")
+			else:
+				if var["gene_symbol"]+" 未知变异类型！" not in result:
+					result.append(var["gene_symbol"]+" 未知变异类型！")
+		# 2025.07.15-新增完成
 	return ", ".join(result)
 jinja2.filters.FILTERS["var_sum_s_filter"] = var_sum_s
 
@@ -2125,4 +2144,51 @@ def mrd_summary(var_list):
 	else:
 		return "本次未检测到相关驱动突变"
 jinja2.filters.FILTERS["mrd_summary"] = mrd_summary
-	
+
+def MTAP_filter(hd):
+	if not hd:
+		return hd
+	else:
+		return [var for var in hd if var["gene_symbol"] == "MTAP"]
+jinja2.filters.FILTERS["MTAP_filter"] = MTAP_filter
+
+# 获取分析包版本，如ADXHS-tBPTMplus_v1.0.1 
+def get_analysis_version(json_batch_name):
+	result = ""
+	if json_batch_name:
+		json_batch_list = re.split("_", json_batch_name)
+		# zip上传包：日期_测序仪_测序芯片_生信分析包_版本_系统日期流水号
+		if len(json_batch_list) == 6:
+			result = json_batch_list[3]+"_"+json_batch_list[4]
+		# export上传包：日期_测序仪_测序芯片_生信分析包_版本.export系统日期流水号20260512_XMHL_A018293_ADXHS-OncoPro_v0.1.3.export20260512073542
+		# 2025.09.24-v4上zip上传包格式和export一样
+		elif len(json_batch_list) == 5:
+			version = re.split("\.export|\.zip", json_batch_list[-1])
+			print(version)
+			result = json_batch_list[3]+"_"+version[0]
+	return result
+jinja2.filters.FILTERS["get_analysis_version"] = get_analysis_version
+
+def judge_version(info):
+	json_batch_name = info[0]
+	versionA = get_analysis_version(json_batch_name)
+	versionB = info[1]
+	# 处理为0.1.2的格式，并且以.为隔断进行拆分
+	versionA = versionA.replace("V", "").replace("v", "").split("_")[1].split(".") if versionA else ""
+	versionB = versionB.replace("V", "").replace("v", "").split(".") if versionB else ""
+	# 处理后的格式为[0, 7, 0]，三位版本号。未返回版本号的就按最新的展示
+	if versionA and versionB:
+		for i in range(len(versionA)):
+			a = int(versionA[i])
+			b = int(versionB[i]) if i < len(versionB) else 0
+			if a == b:
+				continue
+			else:
+				if a - b > 0:
+					return True
+				else:
+					return False
+		return True
+	else:
+		return True	
+jinja2.filters.FILTERS["judge_version"] = judge_version

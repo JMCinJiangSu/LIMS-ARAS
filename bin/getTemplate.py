@@ -34,6 +34,9 @@ def MatchReport(jsonDict, config):
 		# 新增药企配置-2023.11.17，单位名称先用company吧，现在还是手动上传的订单，不清楚对接LIMS后会是什么样
 		if (i["company"], i["prod_names"], i["product_name"]) in requir_dict["rummage"]["CustomEdition"].keys():
 			report_name = requir_dict["rummage"]["CustomEdition"].get((i["company"], i["prod_names"], i["product_name"]))
+		# 新LIMS不用单位名称了，product_name XW4221-Oncopro200 2026.07.01
+		elif (i["prod_names"], i["product_name"]) in requir_dict["rummage"]["CustomEdition"].keys():
+			report_name = requir_dict["rummage"]["CustomEdition"].get((i["prod_names"], i["product_name"]))
 		else:
 		# 新增药企配置代码更新结束-2023.11.17
 			if (i["origin_company"], i["prod_names"]) in requir_dict["rummage"]["CustomEdition"].keys():

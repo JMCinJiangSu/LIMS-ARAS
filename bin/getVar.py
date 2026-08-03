@@ -33,6 +33,7 @@ from libs.specialRequest import getSum_for_tXW6002
 from libs.specialRequest import getSum_for_gXW6002
 from libs.specialRequest import getSum_for_XW5902, getSum_for_XW5303
 from libs.specialRequest import var_ad3101_summary, getSum_for_tXW6701, getSum_for_gXW6701, getSum_for_XW6003, getSum_for_XW6701, PAN116_LYZL_summary, getSum_for_gXW7601, getSum_for_tXW7601
+from libs.processTheHD import process_hd
 
 def getVar(jsonDict, config, report_name):
 	data = {}
@@ -40,6 +41,7 @@ def getVar(jsonDict, config, report_name):
 	cnv = copy.deepcopy(process_cnv(jsonDict, config))
 	sv_combination, rna_sv, rna_sv_only = copy.deepcopy(process_sv(jsonDict, config))
 	mlpa, mlpa_image, mlpa_image_del = process_mlpa(jsonDict, config)
+	hd = process_hd(jsonDict, config)
 
 	# 更新为非肺癌，3类变异中也不展示BCL2L11-2022.09.06
 	# 进院模板要展示BCL2L11，放3类，这边再加个临检的限制-2022.09.14
@@ -65,20 +67,30 @@ def getVar(jsonDict, config, report_name):
 	
 	# 其他模板都按下面的排序规则
 	else:
+		# 以下为旧-----------------------------
 		# 排序 按I、II、基因、类型、频率（频率在各部分处理的时候已经排序了）
-		rule = {"Snvindel" : 0, "Cnv" : 1, "Sv" : 2, "PSeqRnaSv" : 3}
+		#rule = {"Snvindel" : 0, "Cnv" : 1, "Sv" : 2, "PSeqRnaSv" : 3}
 		# 更新排序规则，按I/II（同等级时按治疗方案最高等级进行排序）、基因、类型、频率（频率在各部分处理的时候已经排序了）
 		# 同等级时按治疗方案最高等级进行排序 A > B > C > D > N
-		top_level_rule = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "N" : 4}
+		#top_level_rule = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "N" : 4}
+		# 2025.04.09-最高等级新增“E”
+		#top_level_rule = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "N" : 5}
 		#var_data_without_rnasv = sorted(snvindel + cnv + sv_combination, key=lambda i : (i["clinic_num_s"], top_level_rule.get(i["top_level"]), i["gene_symbol"], rule.get(i["bio_category"])))
 		#var_data_rna_sv = sorted(rna_sv, key=lambda i : (i["clinic_num_s"], top_level_rule.get(i["top_level"]), i["gene_symbol"], rule.get(i["bio_category"])))
 		#var_data = sorted(snvindel + cnv + sv_combination + rna_sv_only, key=lambda i : (i["clinic_num_s"], top_level_rule.get(i["top_level"]), i["gene_symbol"], rule.get(i["bio_category"])))
 		# 更新下排序，把clinic_num_s排到top_level后面，并且clinic_num_s做个倒序转化-2023.02.01
+		#clinic_num_s_rule = {5 : 0, 4 : 1, 3 : 2, 2 : 3, 1 : 4}
+		#var_data_without_rnasv = sorted(snvindel + cnv + sv_combination, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
+		#var_data_rna_sv = sorted(rna_sv, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
+		#var_data = sorted(snvindel + cnv + sv_combination + rna_sv_only, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
+		# 以下为新---------------------------------
+		rule = {"Snvindel" : 0, "Cnv" : 1, "PHd" : 2, "Sv" : 3, "PSeqRnaSv" : 4}
+		top_level_rule = {"A" : 0, "B" : 1, "C" : 2, "D" : 3, "E" : 4, "N" : 5}
 		clinic_num_s_rule = {5 : 0, 4 : 1, 3 : 2, 2 : 3, 1 : 4}
-		var_data_without_rnasv = sorted(snvindel + cnv + sv_combination, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
+		var_data_without_rnasv = sorted(snvindel + cnv + hd + sv_combination, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
 		var_data_rna_sv = sorted(rna_sv, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
-		var_data = sorted(snvindel + cnv + sv_combination + rna_sv_only, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
-	### 
+		var_data = sorted(snvindel + cnv + hd + sv_combination + rna_sv_only, key=lambda i : (top_level_rule.get(i["top_level"]), clinic_num_s_rule.get(i["clinic_num_s"]), i["gene_symbol"], rule.get(i["bio_category"])))
+		
 
 	# 合并MET 14跳跃突变
 	if jsonDict['sample_info']['product_name'] != 'XW1402':

@@ -104,9 +104,14 @@ def getRequirenment(config):
 						#print (i)
 						requir_dict[i["business_type"]][i["report_type"]].setdefault((i["company"], i["prod_name"]), "")
 						requir_dict[i["business_type"]][i["report_type"]][(i["company"], i["prod_name"])] = i["report_name"]
-			else:	
-				requir_dict[i["business_type"]][i["report_type"]].setdefault(i["prod_name"], "")
-				requir_dict[i["business_type"]][i["report_type"]][i["prod_name"]] = i["report_name"]
+			else:
+				# 新LIMS不用单位名称了，product_name XW4221-Oncopro200
+				if i["product_name"]:
+					requir_dict[i["business_type"]][i["report_type"]].setdefault((i["prod_name"], i["product_name"]), "")
+					requir_dict[i["business_type"]][i["report_type"]][(i["prod_name"], i["product_name"])] = i["report_name"]
+				else:
+					requir_dict[i["business_type"]][i["report_type"]].setdefault(i["prod_name"], "")
+					requir_dict[i["business_type"]][i["report_type"]][i["prod_name"]] = i["report_name"]
 
 	# 是否需要拼接基础模板对照表
 	report_merge_dict = {}

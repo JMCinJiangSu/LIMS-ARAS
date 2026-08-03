@@ -21,6 +21,7 @@ def get_io_detect(var_data, config):
 	io["result_116"], io["io_p_summary_116"], io["io_n_summary_116"] = io_detect_for_116(var_data)
 	io["io_p_summary_ZJZL"], io["io_n_summary_ZJZL"] = io_detect_for_ZJZL(var_data, config)
 	io["result_new_cnvlist"], io["io_p_summary_new_cnvlist"], io["io_n_summary_new_cnvlist"] = io_detect_new_cnvlist(var_data)
+	io["io_cp200"], io["io_p_summary_cp200"], io["io_n_summary_cp200"] = io_detect_for_cp200(var_data)
 	return io
 
 def io_detect(var_data):
@@ -254,3 +255,65 @@ def io_detect_for_ZJZL(var_data, config):
 	io_n_list = [i for i in io_inter if i["gene_symbol"] in io_gene_N or i["gene_symbol"] == "CCND1/FGF3/FGF4/FGF19"]
 
 	return io_p_list, io_n_list
+
+def io_detect_for_cp200(var_data):
+	# 返回结果中的io_result用于填充IO表，", ".join(io_p_list), ", ".join(io_n_list)用于填充检测结果小结
+	io_result = {}
+	# 汇总体细胞或来源不明I/II/肿瘤发生发展相关变异
+	io_gene_P = ["ATM","ATR","BRCA1","BRCA2","BRIP1","CHEK1","CHEK2","FANCA","MRE11",\
+				 "PALB2","RAD50","MLH1","MSH2","MSH6","PMS2","POLE","POLD1","TP53",\
+				 "KRAS","CD274","ARID1A","SETD2","TERT","KMT2D","FAT1","CDK12"]
+	
+	io_gene_N = ["EGFR","ALK","MDM2","MDM4","CDKN2A","CDKN2B","DNMT3A","STK11","IFNGR1",\
+				 "JAK1","JAK2","APC","CTNNB1","B2M","PTEN","FGF19"]
+	cnv_gene_list = ["CD274", "MDM2", "MDM4", "FGF19"]
+	# v0.1.4 新增HD，检测范围扩大到26个基因，嵇梦晨，2026.05.15
+	#hd_gene_list = ["ATM", "BARD1", "BRCA1", "BRCA2", "BRIP1", "CDK12", "CDKN2A", "CDKN2B", "CHEK1", "CHEK2", "FANCA", "FANCL", "HDAC2", "HOXB13", 
+	#			 "MMS22L", "MTAP", "NF1", "PALB2", "PTEN", "RAD51B", "RAD51C", "RAD51D", "RAD54L", "RASA1", "SETD2", "TP53"]
+	hd_gene_list = ["MTAP", "CDKN2A", "CDKN2B"]
+	
+	level_12_var = [var for var in var_data if judge_var(var, [4,5], [4,5])]
+
+	for var in level_12_var:
+		# 仅展示扩增的基因
+		if var["bio_category"] == "Cnv" and var["gene_symbol"] in cnv_gene_list:
+			if var["gene_symbol"] not in io_result.keys():
+				io_result.setdefault(var["gene_symbol"], [])
+			io_result[var["gene_symbol"]].append("扩增")
+		# 仅展示融合的基因
+		elif var["bio_category"] in ["Sv", "PSeqRnaSv"] and set(re.split(",", var["gene_symbol"])) & set(["ALK"]):
+			if "ALK" not in io_result.keys():
+				io_result.setdefault("ALK", [])
+			if var["five_prime_gene"]+"-"+var["three_prime_gene"]+"融合" not in io_result["ALK"]:
+				io_result["ALK"].append(var["five_prime_gene"]+"-"+var["three_prime_gene"]+"融合")
+		# HD基因经确认同时展示snvindel和hd,直接加在这里不影响旧版报告，嵇梦晨，2026.05.15
+		elif (var["bio_category"] == "Snvindel" or var["bio_category"] == "PHd") and var["gene_symbol"] in hd_gene_list:
+			if var["gene_symbol"] not in io_result.keys():
+				io_result.setdefault(var["gene_symbol"], [])
+			if var["bio_category"] == "Snvindel":
+				if var["hgvs_p"] != "p.?":
+					io_result[var["gene_symbol"]].append(var["hgvs_p"])
+				else:
+					io_result[var["gene_symbol"]].append(var["hgvs_c"])
+			elif var["bio_category"] == "PHd":
+				if var["type"] == "HomoDel":
+					if "纯合缺失" not in io_result[var["gene_symbol"]]:
+						io_result[var["gene_symbol"]].append("纯合缺失")
+				elif var["type"] == "HeteDel":
+					if "杂合缺失" not in io_result[var["gene_symbol"]]:
+						io_result[var["gene_symbol"]].append("杂合缺失")
+				else:
+					io_result[var["gene_symbol"]].append("未知变异类型！")
+		# 其余基因展示Snvindel
+		elif var["bio_category"] == "Snvindel" and var["gene_symbol"] in io_gene_P + io_gene_N:
+			if var["gene_symbol"] not in io_result.keys():
+				io_result.setdefault(var["gene_symbol"], [])
+			if var["hgvs_p"] != "p.?":
+				io_result[var["gene_symbol"]].append(var["hgvs_p"])
+			else:
+				io_result[var["gene_symbol"]].append(var["hgvs_c"])
+	# summary展示
+	io_p_list = ["{0} {1}".format(k, i) for k,v in io_result.items() for i in v if k in io_gene_P]
+	io_n_list = ["{0} {1}".format(k, i) if not re.search("融合", i) else i for k,v in io_result.items() for i in v if k in io_gene_N]
+
+	return io_result, ", ".join(io_p_list), ", ".join(io_n_list)
