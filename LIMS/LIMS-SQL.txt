@@ -1,0 +1,3 @@
+SELECT * FROM [ProjectManger].[ProjectInfo] WHERE MainBarcode = 'XW4205060011'
+SELECT * FROM [PerWork].[ApplySampleInfo] WHERE Barcode = 'XW2404090006'
+SELECT * FROM [WF].[WFRuningRecordResultParse] WHERE WF.WFRuningRecordResultParse.BusinessParam1 = 'XW4205420054'

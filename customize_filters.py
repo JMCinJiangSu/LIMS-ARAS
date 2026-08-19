@@ -2192,3 +2192,16 @@ def judge_version(info):
 	else:
 		return True	
 jinja2.filters.FILTERS["judge_version"] = judge_version
+
+def filter_XW02F7(var_list):
+	gene_list = ["ATM", "BARD1", "BRCA1", "BRCA2", "BRIP1", "CDH1", "CDK12", "CHEK1", "CHEK2", "FANCA", "FANCL", "HDAC2", "PALB2", "PPP2R2A", "PTEN", "RAD51B", "RAD51C", "RAD51D", "RAD54L", "TP53"]
+	result = []
+	detect_gene = [var["gene_symbol"] for var in var_list] if var_list else []
+	notdetect = list(set(gene_list) -  set(detect_gene))
+	for var in var_list:
+		if var["gene_symbol"] in gene_list:
+			result.append(var)
+	for gene in notdetect:
+		result.append({"gene_symbol": gene, "bio_category": ""})
+	return sorted(result, key = lambda i:gene_list.index(i["gene_symbol"]))
+jinja2.filters.FILTERS["filter_XW02F7"] = filter_XW02F7
