@@ -1169,6 +1169,7 @@ def judgeLBD(var_list):
 			conclusion.append('AR（LBD突变）')
 		elif non_lbd_present:
 			conclusion.append('AR（非LBD突变）')
+			
 	seen = set()
 	unique_conclusion = []
 	for item in conclusion:
@@ -1536,4 +1537,92 @@ def getSum_for_XW5303(var_list, hd):
 	main_gene = ['BRCA1', 'BRCA2']
 	hrr_genelist = ['EGFR']
 	result = XW6701_summary(var, main_gene, hrr_genelist)
+	return result
+
+def getSum_for_XW6702(var_list):
+	var_list = var_list["var_somatic"]["level_I"] + var_list["var_somatic"]["level_II"] + var_list["var_somatic"]["level_onco_nodrug"]
+	result = {'AR': [], 'other': []}
+	allowed_bio = ['Snvindel', 'Cnv', 'Sv', 'PSeqRnaSv']
+	seen = {'AR': set(), 'other': set()}  # 跟踪已添加条目，避免重复
+	clin_map = {'Pathogenic': '致病性变异', 'Likely pathogenic': '疑似致病性变异'}
+	func_map = {'Oncogenic': '致癌性变异', 'Likely oncogenic': '疑似致癌性变异'}
+	sort_order = {
+		'致病性变异': 0,
+		'致癌性变异': 1,
+		'疑似致病性变异': 2,
+		'疑似致癌性变异': 3
+	}
+	lbd_order = {
+		'（LBD突变）': 0,
+		'（非LBD突变）': 1,
+		'other': 2
+	}
+	def get_var_info(item):
+		bio_category = item['bio_category']
+		if bio_category == 'Snvindel':
+			return f"{item['hgvs_c']} {item['hgvs_p']}"
+		elif bio_category == 'Cnv':
+			return item['cnv_type']
+		elif bio_category in ['Sv', 'PSeqRnaSv']:
+			return f"{item['five_prime_gene']}-{item['three_prime_gene']}"
+		else:
+			return ''
+	for item in var_list:
+		gene_symbol = item['gene_symbol']
+		bio_category = item['bio_category']
+		clin_sig = item['clinical_significance']
+		func_class = item['function_classification']
+		tag = "other"
+
+		if bio_category not in allowed_bio:
+			continue
+
+		# 646-919 之间的错义突变为LBD ，其他变异为非LBD突变，p.(V666M)
+		if gene_symbol == "AR" and bio_category == "Snvindel":
+			num = re.findall(r'\d+', item['hgvs_p']) if item['hgvs_p'] != 'p.?' else []
+			if 646 <= int(num[0]) <= 919 and item['type'] == 'nonSynonymous_Substitution':
+				tag = "（LBD突变）"
+			else:
+				tag = "（非LBD突变）"
+
+		processed = False
+		for category, genes in [('AR', ["AR"])]:
+			if gene_symbol in genes and (clin_sig in clin_map or func_class in func_map):
+			    # if gene_symbol in genes and clin_sig in clin_map:
+				inter = clin_map[clin_sig] if clin_sig != '-' else func_map[func_class]
+				var_info = get_var_info(item)
+				entry_key = (gene_symbol, inter, var_info, tag)
+
+				if entry_key not in seen[category]:
+					seen[category].add(entry_key)
+					result[category].append({
+						'gene_symbol': gene_symbol,
+						'inter': inter,
+						'var_info': var_info,
+						'tag': tag
+					})
+				processed = True
+				break
+		if processed:
+			continue
+		
+		inter = None
+		if clin_sig != '-' and func_class == '-' and clin_sig in clin_map:
+			inter = clin_map[clin_sig]
+		elif func_class in func_map:
+			inter = func_map[func_class]
+		if inter:
+			var_info = get_var_info(item)
+			entry_key = (gene_symbol, inter, var_info, tag)
+			if entry_key not in seen['other']:
+				seen['other'].add(entry_key)
+				result['other'].append({
+					'gene_symbol': gene_symbol,
+					'inter': inter,
+					'var_info': var_info,
+					'tag': tag
+				})
+	
+	for category in result:
+		result[category] = sorted(result[category], key=lambda x: (lbd_order[x['tag']], sort_order[x['inter']], x['gene_symbol'].upper()))
 	return result
